@@ -20,9 +20,41 @@ module Hands
       self.cards.collect(&:suite).uniq
     end
     
+    def duplicates
+      pairs = self.cards.collect(&:value)
+      pairs.uniq.select{ |e| (pairs - [e]).size < pairs.size - 1 }
+    end
+    
+    # Hands
     
     def high_card
-      self.cards.sort
+      self.cards.sort.reverse
+    end
+    
+    def pair
+      dupes = self.duplicates
+      return nil if dupes.length == 0
+      
+      hand = self.cards.select do |card|
+        dupes.include?(card.value)
+      end
+      
+      hand = hand.sort.reverse
+      hand << (self.cards - hand).sort.reverse
+      hand.flatten
+    end
+    
+    def two_pair
+      dupes = self.duplicates
+      return nil if dupes.length < 2
+      
+      hand = self.cards.select do |card|
+        dupes.include?(card.value)
+      end
+      
+      hand = hand.sort.reverse
+      hand << (self.cards - hand).sort.reverse
+      hand.flatten
     end
   end
 end
