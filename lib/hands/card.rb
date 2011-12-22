@@ -1,5 +1,7 @@
 module Hands
   class Card
+    include Comparable
+    
     attr_accessor :suite
     attr_accessor :value
     
@@ -18,6 +20,9 @@ module Hands
           @value = VALUES[val - 2]
           return
         end
+      elsif val.is_a?(String) and VALUES.include?(val.downcase)
+        @value = val.downcase
+        return
       end
       @value = nil
     end
@@ -40,10 +45,27 @@ module Hands
     
     def description
       if self.is_valid?
-        "#{VALUE_DESCRIPTIONS[VALUES.index(self.value.to_s)].capitalize} of #{self.suite.to_s.capitalize}"
+        "#{VALUE_DESCRIPTIONS[self.value_index].capitalize} of #{self.suite.to_s.capitalize}"
       else
         'invalid'
       end
+    end
+    
+    def <=>(other_card, check_suite = false)
+      # TODO: Handle invalid cards
+      result = self.value_index <=> other_card.value_index
+      return self.suite_index <=> other_card.suite_index if result == 0 and check_suite
+      result
+    end
+    
+    protected
+    
+    def suite_index
+      SUITES.index(self.suite.to_s.downcase)
+    end
+    
+    def value_index
+      VALUES.index(self.value.to_s.downcase)
     end
   end
 end
