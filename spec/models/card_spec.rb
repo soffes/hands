@@ -22,6 +22,6 @@ describe Hands::Card do
     card.value = 11
     
     card.is_valid?.should eq(true)
-    card.value.should eq('J')
+    card.value.should eq('j')
   end
 end
