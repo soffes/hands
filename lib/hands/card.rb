@@ -19,7 +19,7 @@ module Hands
         self.value = first[:value] if first[:value]
         self.suite = first[:suite] if first[:suite]
       end
-      
+
       # Set suite
       self.suite = suite if suite
     end

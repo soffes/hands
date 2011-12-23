@@ -7,7 +7,7 @@ module Hands
     def cards
       @cards ||= []
     end
-        
+
     def <=>(other_hand)
       response = (self.hand_index <=> other_hand.hand_index)
 
@@ -85,28 +85,28 @@ module Hands
       end
       cs
     end
-    
+
     def flush
       # If all of the cards are the same suite, we have a flush
       return nil unless self.suites.length == 1
       self.cards.sort.reverse
     end
-    
+
     def full_house
       # TODO: Implement
       nil
     end
-    
+
     def four_of_a_kind
       # TODO: Implement
       nil
     end
-    
+
     def straight_flush
       # TODO: Implement
       nil
     end
-    
+
     protected
 
     def hand_index
