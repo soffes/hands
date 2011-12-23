@@ -151,7 +151,15 @@ describe Hands::Hand do
     hand.best_hand[:type].should eq('four_of_a_kind')
   end
 
-  it 'should recognize a straight flush'
+  it 'should recognize a straight flush' do
+    hand = Hands::Hand.new
+    hand << Hands::Card[2, :hearts]
+    hand << Hands::Card[3, :hearts]
+    hand << Hands::Card[4, :hearts]
+    hand << Hands::Card[5, :hearts]
+    hand << Hands::Card[6, :hearts]
+    hand.best_hand[:type].should eq('straight_flush')
+  end
 
   it 'should recognize the best hand'  do
     hand = Hands::Hand.new

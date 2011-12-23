@@ -102,8 +102,8 @@ module Hands
     end
 
     def straight_flush
-      # TODO: Implement
-      nil
+      return nil unless self.flush
+      self.straight
     end
 
     protected
