@@ -139,7 +139,15 @@ describe Hands::Hand do
     hand.best_hand[:type].should eq('flush')
   end
 
-  it 'should recognize a full house'
+  it 'should recognize a full house' do
+    hand = Hands::Hand.new
+    hand << Hands::Card[7, :hearts]
+    hand << Hands::Card[7, :spades]
+    hand << Hands::Card[7, :diamonds]
+    hand << Hands::Card[9, :spades]
+    hand << Hands::Card[9, :clubs]
+    hand.best_hand[:type].should eq('full_house')
+  end
 
   it 'should recognize four of a kind' do
     hand = Hands::Hand.new

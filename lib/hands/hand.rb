@@ -93,8 +93,22 @@ module Hands
     end
 
     def full_house
-      # TODO: Implement
-      nil
+      dupes = self.duplicates
+      return nil unless dupes.length == 2
+
+      a = []
+      b = []
+
+      hand = self.cards.select do |card|
+        if dupes.first == card.value
+          a << card
+        elsif dupes.last == card.value
+          b << card
+        end
+      end
+
+      return nil unless a.length + b.length == 5
+      self.cards.sort.reverse
     end
 
     def four_of_a_kind
