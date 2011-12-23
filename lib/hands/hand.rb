@@ -54,7 +54,34 @@ module Hands
     end
     
     def straight
-      nil
+      return nil unless self.cards.length == 5
+      cs = self.cards.sort.reverse
+      
+      # Ace's low
+      if cs.first.value == 'a' and cs[1].value == 5
+        # Move ace to end
+        ace = cs.first
+        cs = cs[1..4]
+        cs << ace
+        
+        # Check succession
+        csr = cs.reverse
+        4.times do |i|
+          next if i == 0
+          return nil unless csr[i].value_index == i - 1
+        end
+      
+      # Normal
+      else
+        # Check range
+        return nil unless cs.first.value_index - cs.last.value_index == 4
+      
+        # Check succession
+        4.times do |i|        
+          return nil unless cs[i].value_index == cs[i + 1].value_index + 1
+        end
+      end
+      cs
     end
     
     def flush

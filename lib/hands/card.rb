@@ -67,8 +67,6 @@ module Hands
       result
     end
     
-    protected
-    
     def suite_index
       SUITES.index(self.suite.to_s.downcase)
     end
