@@ -52,7 +52,7 @@ module Hands
     end
 
     def three_of_a_kind
-      nil
+      self.kinds(3)
     end
 
     def straight
@@ -98,8 +98,7 @@ module Hands
     end
 
     def four_of_a_kind
-      # TODO: Implement
-      nil
+      self.kinds(4)
     end
 
     def straight_flush
@@ -127,6 +126,21 @@ module Hands
       hand = self.cards.select do |card|
         dupes.include?(card.value)
       end
+
+      hand = hand.sort.reverse
+      hand << (self.cards - hand).sort.reverse
+      hand.flatten
+    end
+
+    def kinds(num)
+      dupes = self.duplicates
+      return nil unless dupes.length == 1
+
+      hand = self.cards.select do |card|
+        dupes.include?(card.value)
+      end
+
+      return nil unless hand.length == num
 
       hand = hand.sort.reverse
       hand << (self.cards - hand).sort.reverse
