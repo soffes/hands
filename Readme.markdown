@@ -2,7 +2,7 @@
 
 Simple library for calculating poker hands.
 
-Currently this gem is very limited. I plan on adding outs, odds, and other actually useful stuff. I started writing this on a plane as a personal challenge. It's current state is crude, although is tested and works.
+Currently this gem is very limited. I plan on adding outs, odds, and other actually useful stuff. I started writing this on a plane as a personal challenge. It's current state is crude, although tested and works.
 
 ## Installation
 
@@ -54,10 +54,20 @@ card2 = Hands::Card.new(:value => 3, :suite => :clubs)
 card2 > card1 # true
 ```
 
+## Running Tests
+
+Running and reading the tests is (for now) the best way to see the functionality of this gem.
+
+```
+$ bundle
+$ bundle exec rake spec
+```
+
 ## Contributing
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+3. Write a passing spec
+4. Commit your changes (`git commit -am 'Added some feature'`)
+5. Push to the branch (`git push origin my-new-feature`)
+6. Create new Pull Request
