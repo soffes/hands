@@ -1,26 +1,57 @@
 require 'spec_helper'
 
 describe Hands::Hand do
-  # it 'should order hands' do
-  #   hand1 = Hands::Hand.new
-  #   hand1 << Hands::Card.new(:value => 2, :suite => :hearts)
-  #   hand1 << Hands::Card.new(:value => 2, :suite => :clubs)
-  #   
-  #   hand2 = Hands::Hand.new
-  #   hand2 << Hands::Card.new(:value => 'A', :suite => :hearts)
-  #   hand2 << Hands::Card.new(:value => 'A', :suite => :clubs)
-  #   
-  #   (hand2 > hand1).should eq(true)
-  # end
+  it 'should order different types of hands' do
+    pair = Hands::Hand.new
+    pair << Hands::Card.new(:value => 2, :suite => :hearts)
+    pair << Hands::Card.new(:value => 2, :suite => :clubs)
+    
+    flush = Hands::Hand.new
+    flush << Hands::Card.new(:value => 6, :suite => :hearts)
+    flush << Hands::Card.new(:value => 7, :suite => :hearts)
+    flush << Hands::Card.new(:value => 8, :suite => :hearts)
+    flush << Hands::Card.new(:value => 2, :suite => :hearts)
+    flush << Hands::Card.new(:value => 4, :suite => :hearts)
+    
+    (flush > pair).should eq(true)
+  end
+  
+  it 'should order same types of hands' do
+    small_pair = Hands::Hand.new
+    small_pair << Hands::Card.new(:value => 2, :suite => :hearts)
+    small_pair << Hands::Card.new(:value => 2, :suite => :clubs)
+    
+    large_pair = Hands::Hand.new
+    large_pair << Hands::Card.new(:value => 'A', :suite => :hearts)
+    large_pair << Hands::Card.new(:value => 'A', :suite => :clubs)
+    
+    (large_pair > small_pair).should eq(true)
+    
+    small_kicker = Hands::Hand.new
+    small_kicker << Hands::Card.new(:value => 'A', :suite => :spades)
+    small_kicker << Hands::Card.new(:value => 'A', :suite => :diamonds)
+    small_kicker << Hands::Card.new(:value => 2, :suite => :diamonds)
+    small_kicker << Hands::Card.new(:value => 3, :suite => :diamonds)
+    small_kicker << Hands::Card.new(:value => 4, :suite => :diamonds)
+    
+    big_kicker = Hands::Hand.new
+    big_kicker << Hands::Card.new(:value => 'A', :suite => :hearts)
+    big_kicker << Hands::Card.new(:value => 'A', :suite => :clubs)
+    big_kicker << Hands::Card.new(:value => 10, :suite => :diamonds)
+    big_kicker << Hands::Card.new(:value => 9, :suite => :diamonds)
+    big_kicker << Hands::Card.new(:value => 7, :suite => :diamonds)
+    
+    (big_kicker > small_kicker).should eq(true)
+  end
   
   it 'should collect suites' do
-    hand1 = Hands::Hand.new
-    hand1 << Hands::Card.new(:value => 2, :suite => :hearts)
-    hand1 << Hands::Card.new(:value => 2, :suite => :clubs)
-    hand1.suites.should eq([:hearts, :clubs])
+    hand = Hands::Hand.new
+    hand << Hands::Card.new(:value => 2, :suite => :hearts)
+    hand << Hands::Card.new(:value => 2, :suite => :clubs)
+    hand.suites.should eq([:hearts, :clubs])
     
-    hand1 << Hands::Card.new(:value => 3, :suite => :clubs)
-    hand1.suites.should eq([:hearts, :clubs])
+    hand << Hands::Card.new(:value => 3, :suite => :clubs)
+    hand.suites.should eq([:hearts, :clubs])
   end
   
   it 'should recognize high card' do

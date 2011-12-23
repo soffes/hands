@@ -9,7 +9,12 @@ module Hands
     end
         
     def <=>(other_hand)
-      0
+      response = (self.hand_index <=> other_hand.hand_index)
+      if response == 0
+        self.cards <=> other_hand.cards
+      else
+        response
+      end
     end
     
     def <<(card)
@@ -70,6 +75,12 @@ module Hands
     end
     
     protected
+    
+    def hand_index
+      best = self.best_hand
+      return -1 if best.nil?
+      HAND_ORDER.index(best[:type].to_s)
+    end
     
     def duplicates
       pairs = self.cards.collect(&:value)
