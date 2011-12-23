@@ -62,8 +62,30 @@ describe Hands::Hand do
    
   it 'should recognize three of a kind'
   it 'should recognize a straight'
-  it 'should recognize a flush'
+  
+  it 'should recognize a flush' do
+    hand = Hands::Hand.new
+    hand << Hands::Card.new(:value => 6, :suite => :hearts)
+    hand << Hands::Card.new(:value => 7, :suite => :hearts)
+    hand << Hands::Card.new(:value => 8, :suite => :hearts)
+    hand << Hands::Card.new(:value => 2, :suite => :hearts)
+    hand << Hands::Card.new(:value => 4, :suite => :hearts)
+    
+    hand.best_hand[:type].should eq('flush')
+  end
+  
   it 'should recognize a full house'
   it 'should recognize four of a kind'
   it 'should recognize a straight flush'
+  
+  it 'should recognize the best hand'  do
+    hand = Hands::Hand.new
+    hand << Hands::Card.new(:value => 7, :suite => :hearts)
+    hand << Hands::Card.new(:value => 7, :suite => :spades)
+    hand << Hands::Card.new(:value => 4, :suite => :diamonds)
+    hand << Hands::Card.new(:value => 9, :suite => :hearts)
+    hand << Hands::Card.new(:value => 9, :suite => :clubs)
+    
+    hand.best_hand[:type].should eq('two_pair')
+  end
 end
