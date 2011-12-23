@@ -5,10 +5,19 @@ module Hands
     attr_accessor :suite
     attr_accessor :value
     
-    def initialize(params = nil)
-      return unless params
-      self.value = params[:value] if params[:value]
-      self.suite = params[:suite] if params[:suite]
+    def self.[](first = nil, second = nil)
+      self.new(first, second)
+    end
+    
+    def initialize(first = nil, suite = nil)
+      if first.is_a?(Integer) or first.is_a?(String)
+        self.value = first
+      elsif first.is_a?(Hash)
+        self.value = first[:value] if first[:value]
+        self.suite = first[:suite] if first[:suite]
+      end
+      
+      self.suite = suite if suite
     end
     
     def value=(val)
