@@ -13,6 +13,6 @@ module Hands
   # Reverse alphabetically ordered suites
   SUITES = %w{ clubs diamonds hearts spades }
 
-  # Order of poker hands
+  # Ranks of poker hands
   HAND_ORDER = %w{ high_card pair two_pair three_of_a_kind straight flush full_house four_of_a_kind straight_flush }
 end

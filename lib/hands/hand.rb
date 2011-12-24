@@ -1,13 +1,21 @@
 module Hands
+  # Represents a poker hand.
   class Hand
     include Comparable
 
+    # @return [Array] Cards in the hand
     attr_accessor :cards
 
     def cards
       @cards ||= []
     end
 
+    # Compares the hand with another hand.
+    #
+    # @param [Hand] other_hand the hand to compare the receiver to
+    # @return [Integer] `-1` if `other_hand` is less than the receiver, `0` for equal to, and `1` for greater than
+    # @see HAND_ORDER
+    # @see Card#<=>
     def <=>(other_hand)
       response = (self.hand_index <=> other_hand.hand_index)
 
@@ -19,14 +27,19 @@ module Hands
       end
     end
 
+    # Add a card
+    #
+    # @return [Card] the card added
     def <<(card)
       self.cards << card
     end
 
+    # @return [Array] All of the suites contained in the hand
     def suites
       self.cards.collect(&:suite).uniq
     end
 
+    # @return [Hash] A hash with `:type` and `:cards` keys.
     def best_hand
       response = {}
       HAND_ORDER.reverse.each do |type|
@@ -39,22 +52,27 @@ module Hands
       response
     end
 
+    # @return [Array] Array of {Card} objects with the highest card first
     def high_card
       self.cards.sort.reverse
     end
 
+    # @return [Array, Nil] Array of {Card} objects with the pair first and kickers in decending order or `nil` if there isn't a pair in the hand
     def pair
       self.pairs(1)
     end
 
+    # @return [Array, Nil] Array of {Card} objects with the pairs first and kickers in decending order or `nil` if there isn't two pair in the hand
     def two_pair
       self.pairs(2)
     end
 
+    # @return [Array, Nil] Array of {Card} objects with the three of a kind first and kickers in decending order or `nil` if there isn't three of a kind in the hand
     def three_of_a_kind
       self.kinds(3)
     end
 
+    # @return [Array, Nil] Array of {Card} objects with the straight in decending order or `nil` if there isn't a straight in the hand
     def straight
       return nil unless self.cards.length == 5
       cs = self.cards.sort.reverse
@@ -86,12 +104,14 @@ module Hands
       cs
     end
 
+    # @return [Array, Nil] Array of {Card} objects with the flush in decending order or `nil` if there isn't a flush in the hand
     def flush
       # If all of the cards are the same suite, we have a flush
       return nil unless self.suites.length == 1
       self.cards.sort.reverse
     end
 
+    # @return [Array, Nil] Array of {Card} objects with the full house in decending order or `nil` if there isn't a full house in the hand
     def full_house
       dupes = self.duplicates
       return nil unless dupes.length == 2
@@ -111,22 +131,30 @@ module Hands
       self.cards.sort.reverse
     end
 
+    # @return [Array, Nil] Array of {Card} objects with the four of a kind first the kicker in decending order or `nil` if there isn't four of a kind in the hand
     def four_of_a_kind
       self.kinds(4)
     end
 
+    # @return [Array, Nil] Array of {Card} objects with the straight flush in decending order or `nil` if there isn't a straight flush in the hand
     def straight_flush
       return nil unless self.flush
       self.straight
     end
 
-    protected
-
+    # Hand's index
+    #
+    # Mainly used for internal reasons when comparing hand.
+    #
+    # @return [Integer] index of the hand's rank
+    # @see HAND_ORDER
     def hand_index
       best = self.best_hand
       return -1 if best.nil?
       HAND_ORDER.index(best[:type].to_s)
     end
+
+    protected
 
     def duplicates
       pairs = self.cards.collect(&:value)
