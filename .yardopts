@@ -1,1 +1,8 @@
---markup markdown --no-private 'lib/**/*.rb' 'spec/**/*.rb' - Readme.markdown LICENSE
+--markup markdown
+--plugin rspec
+'lib/**/*.rb'
+'spec/**/*.rb'
+-
+Readme.markdown
+Todo.markdown
+LICENSE

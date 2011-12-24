@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Hands::Card do
+describe Hands::Card, '#is_valid?' do
   it 'should validate cards' do
     card = Hands::Card.new
     card.is_valid?.should eq(false)
@@ -30,7 +30,9 @@ describe Hands::Card do
     card.value = 'p'
     card.value.should eql(nil)
   end
+end
 
+describe Hands::Card, '#<=>' do
   it 'should be comparable' do
     card1 = Hands::Card.new(:value => 2, :suite => :hearts)
     card2 = Hands::Card.new(:value => 3, :suite => :clubs)
@@ -62,7 +64,9 @@ describe Hands::Card do
     cards = [c2, c3, c4, c5, c6, c7, c8, c9, c10, cJ, cQ, cK, cA]
     cards.sort.should eq(cards)    
   end
+end
 
+describe Hands::Card, '#description' do
   it 'should include description in inspect' do
     card = Hands::Card[2, :hearts]
     card.inspect.include?('Two of Hearts').should eql(true)

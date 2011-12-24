@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Hands::Hand do
+describe Hands::Hand, '#<=>' do
   it 'should order different types of hands' do
     pair = Hands::Hand.new
     pair << Hands::Card[2, :hearts]
@@ -40,7 +40,9 @@ describe Hands::Hand do
     big_kicker << Hands::Card[7, :diamonds]
     (big_kicker > small_kicker).should eq(true)
   end
+end
 
+describe Hands::Hand, '#suites' do
   it 'should collect suites' do
     hand = Hands::Hand.new
     hand << Hands::Card[2, :hearts]
@@ -50,7 +52,9 @@ describe Hands::Hand do
     hand << Hands::Card[3, :clubs]
     hand.suites.should eq([:hearts, :clubs])
   end
+end
 
+describe Hands::Hand, '#high_card' do
   it 'should recognize high card' do
     hand = Hands::Hand.new
     hand << Hands::Card[2, :hearts]
@@ -62,7 +66,9 @@ describe Hands::Hand do
     hand.pair.should eql(nil)
     hand.two_pair.should eql(nil)
   end
+end
 
+describe Hands::Hand, '#pair' do
   it 'should recognize a pair' do
     hand = Hands::Hand.new
     hand << Hands::Card[9, :hearts]
@@ -73,7 +79,9 @@ describe Hands::Hand do
     hand.pair.collect(&:value).should eq([9, 9, 7, 4, 2])
     hand.two_pair.should eql(nil)
   end
+end
 
+describe Hands::Hand, '#two_pair' do
   it 'should recognize two pair'  do
     hand = Hands::Hand.new
     hand << Hands::Card[7, :hearts]
@@ -84,7 +92,9 @@ describe Hands::Hand do
     hand.two_pair.collect(&:value).should eq([9, 9, 7, 7, 4])
     hand.two_pair.should eql(hand.pair)
   end
+end
 
+describe Hands::Hand, '#three_of_a_kind' do
   it 'should recognize three of a kind' do
     hand = Hands::Hand.new
     hand << Hands::Card[7, :hearts]
@@ -94,41 +104,51 @@ describe Hands::Hand do
     hand << Hands::Card[9, :clubs]
     hand.best_hand[:type].should eq('three_of_a_kind')
   end
+end
 
+describe Hands::Hand, '#straight' do
   it 'should recognize a straight' do
-    hand1 = Hands::Hand.new
-    hand1 << Hands::Card[2, :hearts]
-    hand1 << Hands::Card[3, :spades]
-    hand1 << Hands::Card[4, :diamonds]
-    hand1 << Hands::Card[5, :hearts]
-    hand1 << Hands::Card[6, :clubs]
-    hand1.best_hand[:type].should eq('straight')
-
-    hand2 = Hands::Hand.new
-    hand2 << Hands::Card['A', :hearts]
-    hand2 << Hands::Card[2, :spades]
-    hand2 << Hands::Card[3, :diamonds]
-    hand2 << Hands::Card[4, :hearts]
-    hand2 << Hands::Card[5, :clubs]
-    hand2.best_hand[:type].should eq('straight')
-
-    hand3 = Hands::Hand.new
-    hand3 << Hands::Card[10, :hearts]
-    hand3 << Hands::Card['J', :spades]
-    hand3 << Hands::Card['Q', :diamonds]
-    hand3 << Hands::Card['K', :hearts]
-    hand3 << Hands::Card['A', :clubs]
-    hand3.best_hand[:type].should eq('straight')
-
-    hand4 = Hands::Hand.new
-    hand4 << Hands::Card['J', :spades]
-    hand4 << Hands::Card['Q', :diamonds]
-    hand4 << Hands::Card['K', :hearts]
-    hand4 << Hands::Card['A', :clubs]
-    hand4 << Hands::Card[2, :hearts]  
-    hand4.best_hand[:type].should eq('high_card')
+    hand = Hands::Hand.new
+    hand << Hands::Card[2, :hearts]
+    hand << Hands::Card[3, :spades]
+    hand << Hands::Card[4, :diamonds]
+    hand << Hands::Card[5, :hearts]
+    hand << Hands::Card[6, :clubs]
+    hand.best_hand[:type].should eq('straight')
+  end
+  
+  it 'should recognize a straight when ace is low' do
+    hand = Hands::Hand.new
+    hand << Hands::Card['A', :hearts]
+    hand << Hands::Card[2, :spades]
+    hand << Hands::Card[3, :diamonds]
+    hand << Hands::Card[4, :hearts]
+    hand << Hands::Card[5, :clubs]
+    hand.best_hand[:type].should eq('straight')
   end
 
+  it 'should recognize a straight when ace is high' do
+    hand = Hands::Hand.new
+    hand << Hands::Card[10, :hearts]
+    hand << Hands::Card['J', :spades]
+    hand << Hands::Card['Q', :diamonds]
+    hand << Hands::Card['K', :hearts]
+    hand << Hands::Card['A', :clubs]
+    hand.best_hand[:type].should eq('straight')
+  end
+
+  it 'should not recognize a straight that wraps around' do
+    hand = Hands::Hand.new
+    hand << Hands::Card['J', :spades]
+    hand << Hands::Card['Q', :diamonds]
+    hand << Hands::Card['K', :hearts]
+    hand << Hands::Card['A', :clubs]
+    hand << Hands::Card[2, :hearts]  
+    hand.best_hand[:type].should eq('high_card')
+  end
+end
+
+describe Hands::Hand, '#flush' do
   it 'should recognize a flush' do
     hand = Hands::Hand.new
     hand << Hands::Card[6, :hearts]
@@ -138,7 +158,9 @@ describe Hands::Hand do
     hand << Hands::Card[4, :hearts]
     hand.best_hand[:type].should eq('flush')
   end
+end
 
+describe Hands::Hand, '#full_house' do
   it 'should recognize a full house' do
     hand = Hands::Hand.new
     hand << Hands::Card[7, :hearts]
@@ -148,7 +170,9 @@ describe Hands::Hand do
     hand << Hands::Card[9, :clubs]
     hand.best_hand[:type].should eq('full_house')
   end
+end
 
+describe Hands::Hand, '#four_of_a_kind' do
   it 'should recognize four of a kind' do
     hand = Hands::Hand.new
     hand << Hands::Card[7, :hearts]
@@ -158,7 +182,9 @@ describe Hands::Hand do
     hand << Hands::Card[9, :clubs]
     hand.best_hand[:type].should eq('four_of_a_kind')
   end
+end
 
+describe Hands::Hand, '#straight_flush' do
   it 'should recognize a straight flush' do
     hand = Hands::Hand.new
     hand << Hands::Card[2, :hearts]
@@ -168,7 +194,9 @@ describe Hands::Hand do
     hand << Hands::Card[6, :hearts]
     hand.best_hand[:type].should eq('straight_flush')
   end
+end
 
+describe Hands::Hand, '#best_hand' do
   it 'should recognize the best hand'  do
     hand = Hands::Hand.new
     hand << Hands::Card[7, :hearts]
