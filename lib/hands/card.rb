@@ -1,23 +1,42 @@
 module Hands
+  # Represents a poker playing card.
+  #
+  # You can use `Card[]` as a quick initializer. For example,
+  # `Card[2, :clubs].description` results in `"Two of Clubs"`.
   class Card
     include Comparable
 
+    # @return [Symbol] Card's suite
+    # @see SUITES
     attr_accessor :suite
+
+    # Card's value
+    #
+    # If an invalid value is set, the value will be set to `nil`.
+    # @return [Integer, String] Card's value
+    # @see VALUES
     attr_accessor :value
 
-    def self.[](first = nil, second = nil)
-      self.new(first, second)
+    # (see #initialize)
+    def self.[](value = nil, suite = nil)
+      self.new(value, suite)
     end
 
-    def initialize(first = nil, suite = nil)
+    # Initialize a Card
+    #
+    # @param [String, Integer, Hash] value If an `Integer` or `String` are provided, this will be set to the value. If a `Hash` is provided, its value for `:value` will be set to the `Card`'s value and its `:suite` value will be set to the `Card`'s suite.
+    # @param [Symbol] suite Sets the `Card`'s suite.
+    # @return [Card] A new instance of Card
+    # @see Card.[]
+    def initialize(value = nil, suite = nil)
       # Value provided
-      if first.is_a?(Integer) or first.is_a?(String)
-        self.value = first
+      if value.is_a?(Integer) or value.is_a?(String)
+        self.value = value
 
       # Hash provided
-      elsif first.is_a?(Hash)
-        self.value = first[:value] if first[:value]
-        self.suite = first[:suite] if first[:suite]
+      elsif value.is_a?(Hash)
+        self.value = value[:value] if value[:value]
+        self.suite = value[:suite] if value[:suite]
       end
 
       # Set suite
@@ -48,6 +67,9 @@ module Hands
       @value = nil
     end
 
+    # Standard inspect
+    #
+    # @return [String] `super`'s implementation and the receiver's `description` if it `is_valid?`
     def inspect
       if self.is_valid?
         "#{super} #{self.description}"
@@ -56,14 +78,19 @@ module Hands
       end
     end
 
+    # @return [Boolean] Does the receiver contain a valid value and suite combination
     def is_valid?
       SUITES.include?(self.suite.to_s) and VALUES.include?(self.value.to_s.downcase)
     end
 
+    # @return [Boolean] Does the receiver contain an invalid value and suite combination
     def is_invalid?
       !self.is_valid?
     end
 
+    # Get a string representation of the card
+    #
+    # @return [String] string representation of the card
     def description
       if self.is_valid?
         "#{VALUE_DESCRIPTIONS[self.value_index].capitalize} of #{self.suite.to_s.capitalize}"
@@ -72,6 +99,14 @@ module Hands
       end
     end
 
+    # Compares the card with another card
+    #
+    # By default `check_suite` is `false`. If set to `true`, it will order cards that have the same value by their suite.
+    #
+    # @param [Card] other_card the card to compare the receiver to
+    # @param [Boolean] check_suite a boolean indicating if the suite should be accounted for
+    # @return [Integer] `-1` if `other_card` is less than the receiver, `0` for equal to, and `1` for greater than
+    # @see SUITES
     def <=>(other_card, check_suite = false)
       # TODO: Handle invalid cards
       result = self.value_index <=> other_card.value_index
@@ -79,10 +114,22 @@ module Hands
       result
     end
 
+    # Suite's index
+    #
+    # Mainly used for internal reasons when comparing cards.
+    #
+    # @return [Integer] index of the card's suite
+    # @see SUITES
     def suite_index
       SUITES.index(self.suite.to_s.downcase)
     end
 
+    # Values's index
+    #
+    # Mainly used for internal reasons when comparing cards.
+    #
+    # @return [Integer] index of the card's value
+    # @see VALUES
     def value_index
       VALUES.index(self.value.to_s.downcase)
     end
