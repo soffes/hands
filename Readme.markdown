@@ -22,6 +22,8 @@ Or install it yourself as:
 
 ## Usage
 
+Read the [documentation](http://rubydoc.info/github/samsoffes/hands/master/frames).
+
 ``` ruby
 # Best hand detection
 straight = Hands::Hand.new
