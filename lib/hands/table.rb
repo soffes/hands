@@ -17,7 +17,7 @@ module Hands
     def initialize
       @deck = Deck.new
       @community = []
-      @mucked = []
+      @muck = []
     end
 
     def deal_player_cards!(number_of_cards = 2)
