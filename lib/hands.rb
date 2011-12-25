@@ -2,6 +2,7 @@ require 'hands/version'
 require 'hands/card'
 require 'hands/hand'
 require 'hands/player'
+require 'hands/deck'
 require 'hands/table'
 
 # See <http://www.pagat.com/poker/rules/ranking.html> for ranking references.

@@ -69,10 +69,10 @@ end
 describe Hands::Card, '#description' do
   it 'should include description in inspect' do
     card = Hands::Card[2, :hearts]
-    card.inspect.include?('Two of Hearts').should eql(true)
+    card.inspect.include?('Two of Hearts').should be_true
 
     card = Hands::Card.new
     card.description.should eql('invalid')
-    card.inspect.include?('invalid').should eql(false)
+    card.inspect.include?('invalid').should be_false
   end
 end

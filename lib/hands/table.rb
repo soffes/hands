@@ -1,7 +1,7 @@
 module Hands
   # Represents a poker table.
   class Table
-    # @return [Array] {Card}s remaining in the deck
+    # @return [Deck] the {Deck}
     attr_reader :deck
 
     # @return [Array] {Card}s on the table
@@ -13,22 +13,11 @@ module Hands
     # @return [Array] {Player}s at the {Table}
     attr_accessor :players
 
-    # Initializes the deck with 52 {Card}s
+    # Initializes the table with a {Deck}
     def initialize
-      @deck = []
+      @deck = Deck.new
       @community = []
       @mucked = []
-
-      VALUES.each do |value|
-        SUITES.each do |suite|
-          @deck << Card[value, suite]
-        end
-      end
-    end
-
-    # Shuffle the {Deck}
-    def shuffle!
-      @deck.replace = @deck.sort_by { rand }
     end
 
     def deal_player_cards!(number_of_cards = 2)

@@ -17,3 +17,4 @@
 
 * Player
 * Table
+* Deck
