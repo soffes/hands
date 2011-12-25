@@ -34,6 +34,7 @@ module Hands
     # @return [Card] the {Card} added
     def <<(card)
       @cards << card
+      @cards.flatten! # TODO: Figure out why this is necessary
     end
 
     # @return [Array] All of the suites contained in the {Hand}

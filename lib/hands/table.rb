@@ -13,17 +13,21 @@ module Hands
     # @return [Array] {Player}s at the {Table}
     attr_accessor :players
 
+    # @return [Integer] index of the {Player} that has the dealer button
+    attr_accessor :dealer_position
+
     # Initializes the table with a {Deck}
     def initialize
       @deck = Deck.new
       @community = []
       @muck = []
+      @dealer_position = 0
       @deck.shuffle!
     end
 
     def deal_player_cards!(number_of_cards = 2)
       number_of_cards.times do
-        @players.each do |player|
+        [@players.slice(@dealer_position + 1, @players.length - @dealer_position - 1) + @players.slice(0, @dealer_position + 1)].flatten.each do |player|
           player.hand << @deck.pop
         end
       end
@@ -60,6 +64,10 @@ module Hands
         player.hand.empty!
       end
       @deck.shuffle!
+
+      # Move the button
+      @dealer_position = @dealer_position + 1
+      @dealer_position = 0 if @dealer_position == @players.length
     end
   end
 end
