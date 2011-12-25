@@ -5,7 +5,7 @@ describe Hands::Deck, '#shuffle!' do
     deck = Hands::Deck.new
     cards = deck.cards.collect(&:description)
     deck.shuffle!
-    deck.cards.collect(&:description).should_not eql(cards)
+    deck.cards.collect(&:description).should_not eq(cards)
   end
 end
 

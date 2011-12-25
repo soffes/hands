@@ -9,8 +9,8 @@ describe Hands::Table, '#deal_player_cards!' do
     table.players = [sam, ian]
 
     table.deal_player_cards!
-    sam.hand.cards.length.should eql(2)
-    ian.hand.cards.length.should eql(2)
-    table.deck.cards.length.should eql(48)
+    sam.hand.cards.length.should eq(2)
+    ian.hand.cards.length.should eq(2)
+    table.deck.cards.length.should eq(48)
   end
 end

@@ -12,7 +12,7 @@ describe Hands::Hand, '#<=>' do
     flush << Hands::Card[8, :hearts]
     flush << Hands::Card[2, :hearts]
     flush << Hands::Card[4, :hearts]
-    (flush > pair).should eq(true)
+    (flush > pair).should be_true
   end
 
   it 'should order same types of hands' do
@@ -23,7 +23,7 @@ describe Hands::Hand, '#<=>' do
     large_pair = Hands::Hand.new
     large_pair << Hands::Card['A', :hearts]
     large_pair << Hands::Card['A', :clubs]
-    (large_pair > small_pair).should eq(true)
+    (large_pair > small_pair).should be_true
 
     small_kicker = Hands::Hand.new
     small_kicker << Hands::Card['A', :spades]
@@ -38,7 +38,7 @@ describe Hands::Hand, '#<=>' do
     big_kicker << Hands::Card[10, :diamonds]
     big_kicker << Hands::Card[9, :diamonds]
     big_kicker << Hands::Card[7, :diamonds]
-    (big_kicker > small_kicker).should eq(true)
+    (big_kicker > small_kicker).should be_true
   end
 end
 
@@ -62,9 +62,9 @@ describe Hands::Hand, '#high_card' do
     hand << Hands::Card[7, :hearts]
     hand << Hands::Card['a', :spades]
     hand << Hands::Card[4, :diamonds]
-    hand.high_card.collect(&:value).should eq(['a', 9, 7, 4, 2])
-    hand.pair.should eql(nil)
-    hand.two_pair.should eql(nil)
+    hand.high_card.collect(&:value).should eq(%w{a 9 7 4 2})
+    hand.pair.should eq(nil)
+    hand.two_pair.should eq(nil)
   end
 end
 
@@ -76,8 +76,8 @@ describe Hands::Hand, '#pair' do
     hand << Hands::Card[7, :hearts]
     hand << Hands::Card[2, :spades]
     hand << Hands::Card[4, :diamonds]
-    hand.pair.collect(&:value).should eq([9, 9, 7, 4, 2])
-    hand.two_pair.should eql(nil)
+    hand.pair.collect(&:value).should eq(%w{9 9 7 4 2})
+    hand.two_pair.should eq(nil)
   end
 end
 
@@ -89,8 +89,8 @@ describe Hands::Hand, '#two_pair' do
     hand << Hands::Card[4, :diamonds]
     hand << Hands::Card[9, :hearts]
     hand << Hands::Card[9, :clubs]
-    hand.two_pair.collect(&:value).should eq([9, 9, 7, 7, 4])
-    hand.two_pair.should eql(hand.pair)
+    hand.two_pair.collect(&:value).should eq(%w{9 9 7 7 4})
+    hand.two_pair.should eq(hand.pair)
   end
 end
 

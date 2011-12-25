@@ -13,7 +13,7 @@ module Hands
     # Card's value
     #
     # If an invalid value is set, the value will be set to `nil`.
-    # @return [Integer, String] Card's value
+    # @return [String] Card's value
     # @see VALUES
     attr_accessor :value
 
@@ -48,7 +48,7 @@ module Hands
       if val.is_a?(Integer)
         # Number range
         if val > 0 and val <= 10
-          @value = val
+          @value = val.to_s
           return
 
         # Face card or ace range
@@ -67,6 +67,14 @@ module Hands
       @value = nil
     end
 
+    def suite=(suite)
+      if (suite.is_a?(String) or suite.is_a?(Symbol)) and SUITES.include?(suite.to_sym)
+        @suite = suite.to_sym
+      else
+        @suite = nil
+      end
+    end
+
     # Standard inspect
     #
     # @return [String] `super`'s implementation and the receiver's `description` if it `is_valid?`
@@ -80,7 +88,7 @@ module Hands
 
     # @return [Boolean] Does the receiver contain a valid value and suite combination
     def is_valid?
-      SUITES.include?(self.suite.to_s) and VALUES.include?(self.value.to_s.downcase)
+      SUITES.include?(@suite) and VALUES.include?(@value.to_s.downcase)
     end
 
     # @return [Boolean] Does the receiver contain an invalid value and suite combination
@@ -121,7 +129,7 @@ module Hands
     # @return [Integer] index of the card's suite
     # @see SUITES
     def suite_index
-      SUITES.index(self.suite.to_s.downcase)
+      SUITES.index(self.suite.downcase)
     end
 
     # Values's index
@@ -131,7 +139,7 @@ module Hands
     # @return [Integer] index of the card's value
     # @see VALUES
     def value_index
-      VALUES.index(self.value.to_s.downcase)
+      VALUES.index(self.value.downcase)
     end
   end
 end

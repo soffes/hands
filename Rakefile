@@ -8,3 +8,7 @@ RSpec::Core::RakeTask.new do |t|
 end
 
 task :default => :spec
+
+task :coverage do
+  `open coverage/index.html`
+end
