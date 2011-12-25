@@ -6,3 +6,5 @@ desc 'Run specs'
 RSpec::Core::RakeTask.new do |t|
   t.rspec_opts = ['--color']
 end
+
+task :default => :spec
