@@ -25,7 +25,7 @@ describe Hands::Table do
       @table.deck.cards.length.should eq(44)
     end
   end
-  
+
   describe '#deal_turn!' do
     it 'should deal the turn' do
       @table.deal_player_cards!
@@ -34,7 +34,7 @@ describe Hands::Table do
       @table.deck.cards.length.should eq(42)
     end
   end
-  
+
   describe '#deal_river!' do
     it 'should deal the river' do
       @table.deal_player_cards!
@@ -42,6 +42,19 @@ describe Hands::Table do
       @table.deal_turn!
       @table.deal_river!
       @table.deck.cards.length.should eq(40)
+    end
+  end
+
+  describe '#new_hand!' do
+    it 'should reset everything for a new hand' do
+      @table.deal_player_cards!
+      @table.deal_flop!
+      @table.deal_turn!
+      @table.deal_river!
+      @table.new_hand!
+      @sam.hand.cards.length.should eq(0)
+      @ian.hand.cards.length.should eq(0)
+      @table.deck.cards.length.should eq(52)
     end
   end
 end

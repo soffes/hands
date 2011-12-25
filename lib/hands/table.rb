@@ -18,6 +18,7 @@ module Hands
       @deck = Deck.new
       @community = []
       @muck = []
+      @deck.shuffle!
     end
 
     def deal_player_cards!(number_of_cards = 2)
@@ -50,5 +51,15 @@ module Hands
     end
 
     alias_method :turn_card!, :turn_cards!
+
+    def new_hand!
+      @deck = Deck.new
+      @community = []
+      @muck = []
+      @players.each do |player|
+        player.hand.empty!
+      end
+      @deck.shuffle!
+    end
   end
 end
