@@ -2,7 +2,6 @@
 
 ## Features
 
-* Player position
 * Best 5 card hand in hold'em
 * Blinds
 * Betting
