@@ -12,3 +12,13 @@ task :default => :spec
 task :coverage do
   `open coverage/index.html`
 end
+
+task :doc do
+  puts `bundle exec yard`
+end
+
+namespace :doc do
+  task :server do
+    `bundle exec yard server --reload`
+  end
+end
