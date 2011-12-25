@@ -25,9 +25,14 @@ module Hands
       @deck.shuffle!
     end
 
+    # @return [Array] {Player}s ordered by position. Dealer is last.
+    def ordered_players
+      [@players.slice(@dealer_position + 1, @players.length - @dealer_position - 1) + @players.slice(0, @dealer_position + 1)]
+    end
+
     def deal_player_cards!(number_of_cards = 2)
       number_of_cards.times do
-        [@players.slice(@dealer_position + 1, @players.length - @dealer_position - 1) + @players.slice(0, @dealer_position + 1)].flatten.each do |player|
+        self.ordered_players.flatten.each do |player|
           player.hand << @deck.pop
         end
       end

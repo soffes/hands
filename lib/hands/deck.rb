@@ -3,7 +3,7 @@ module Hands
     # @return [Array] {Card}s in the {Deck}
     attr_reader :cards
 
-    # Initialize the deck with 52 {Cards}
+    # Initialize the deck with 52 {Card}s
     def initialize
       @cards = []
       VALUES.each do |value|
