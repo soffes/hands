@@ -4,6 +4,7 @@ module Hands
   # Represents a poker hand.
   class Hand
     include Comparable
+    include HandDetection
 
     # @return [Array] {Card}s in the {Hand}
     attr_accessor :cards

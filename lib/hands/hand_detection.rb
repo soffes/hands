@@ -1,5 +1,5 @@
 module Hands
-  class Hand
+  module HandDetection
     # @return [Hash] A hash with `:type` and `:cards` keys.
     def best_hand
       response = {}
@@ -115,7 +115,7 @@ module Hands
       HAND_ORDER.index(best[:type].to_s)
     end
 
-    protected
+  protected
 
     def duplicates
       pairs = self.cards.collect(&:value)
