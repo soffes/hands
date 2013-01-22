@@ -34,7 +34,7 @@ straight << Hands::Card[2, :spades]
 straight << Hands::Card[3, :diamonds]
 straight << Hands::Card[4, :hearts]
 straight << Hands::Card[5, :clubs]
-straight.best_hand[:type] # 'straight'
+straight.best_hand[:type] # :straight
 
 # Hand comparison
 pair = Hands::Hand.new

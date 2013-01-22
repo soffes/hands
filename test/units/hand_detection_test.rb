@@ -9,7 +9,7 @@ class HandDetectionTest < Hands::TestCase
     hand << Hands::Card[4, :diamonds]
     hand << Hands::Card[9, :hearts]
     hand << Hands::Card[9, :clubs]
-    assert_equal 'two_pair', hand.best_hand[:type]
+    assert_equal :two_pair, hand.best_hand[:type]
   end
 
 
@@ -65,7 +65,7 @@ class HandDetectionTest < Hands::TestCase
     hand << Hands::Card[7, :diamonds]
     hand << Hands::Card[3, :hearts]
     hand << Hands::Card[9, :clubs]
-    assert_equal 'three_of_a_kind', hand.best_hand[:type]
+    assert_equal :three_of_a_kind, hand.best_hand[:type]
   end
 
 
@@ -78,7 +78,7 @@ class HandDetectionTest < Hands::TestCase
     hand << Hands::Card[4, :diamonds]
     hand << Hands::Card[5, :hearts]
     hand << Hands::Card[6, :clubs]
-    assert_equal 'straight', hand.best_hand[:type]
+    assert_equal :straight, hand.best_hand[:type]
   end
 
   def test_straight_when_ace_is_low
@@ -88,7 +88,7 @@ class HandDetectionTest < Hands::TestCase
     hand << Hands::Card[3, :diamonds]
     hand << Hands::Card[4, :hearts]
     hand << Hands::Card[5, :clubs]
-    assert_equal 'straight', hand.best_hand[:type]
+    assert_equal :straight, hand.best_hand[:type]
   end
 
   def test_straight_when_ace_is_high
@@ -98,7 +98,7 @@ class HandDetectionTest < Hands::TestCase
     hand << Hands::Card['Q', :diamonds]
     hand << Hands::Card['K', :hearts]
     hand << Hands::Card['A', :clubs]
-    assert_equal 'straight', hand.best_hand[:type]
+    assert_equal :straight, hand.best_hand[:type]
   end
 
   def test_straights_dont_wrap_around
@@ -108,7 +108,7 @@ class HandDetectionTest < Hands::TestCase
     hand << Hands::Card['K', :hearts]
     hand << Hands::Card['A', :clubs]
     hand << Hands::Card[2, :hearts]
-    assert_equal 'high_card', hand.best_hand[:type]
+    assert_equal :high_card, hand.best_hand[:type]
   end
 
 
@@ -121,7 +121,7 @@ class HandDetectionTest < Hands::TestCase
     hand << Hands::Card[8, :hearts]
     hand << Hands::Card[2, :hearts]
     hand << Hands::Card[4, :hearts]
-    assert_equal 'flush', hand.best_hand[:type]
+    assert_equal :flush, hand.best_hand[:type]
   end
 
 
@@ -134,7 +134,7 @@ class HandDetectionTest < Hands::TestCase
     hand << Hands::Card[7, :diamonds]
     hand << Hands::Card[9, :spades]
     hand << Hands::Card[9, :clubs]
-    assert_equal 'full_house', hand.best_hand[:type]
+    assert_equal :full_house, hand.best_hand[:type]
   end
 
 
@@ -147,7 +147,7 @@ class HandDetectionTest < Hands::TestCase
     hand << Hands::Card[7, :diamonds]
     hand << Hands::Card[7, :clubs]
     hand << Hands::Card[9, :clubs]
-    assert_equal 'four_of_a_kind', hand.best_hand[:type]
+    assert_equal :four_of_a_kind, hand.best_hand[:type]
   end
 
 
@@ -160,6 +160,6 @@ class HandDetectionTest < Hands::TestCase
     hand << Hands::Card[4, :hearts]
     hand << Hands::Card[5, :hearts]
     hand << Hands::Card[6, :hearts]
-    assert_equal 'straight_flush', hand.best_hand[:type]
+    assert_equal :straight_flush, hand.best_hand[:type]
   end
 end
