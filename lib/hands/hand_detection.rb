@@ -35,7 +35,7 @@ module Hands
 
     # @return [Array, Nil] Array of {Card} objects with the straight in decending order or `nil` if there isn't a straight in the {Hand}
     def straight
-      return nil unless self.cards.length == 5
+      return nil unless self.cards.length >= 5
       cs = self.cards.sort.reverse
 
       # Ace's low
@@ -68,27 +68,20 @@ module Hands
     # @return [Array, Nil] Array of {Card} objects with the flush in decending order or `nil` if there isn't a flush in the {Hand}
     def flush
       # If all of the {Card}s are the same suit, we have a flush
-      return nil unless self.suits.length == 1
+      return nil unless self.cards.length >= 5 and self.suits.length == 1
       self.cards.sort.reverse
     end
 
     # @return [Array, Nil] Array of {Card} objects with the full house in decending order or `nil` if there isn't a full house in the {Hand}
     def full_house
       dupes = self.duplicates
-      return nil unless dupes.length == 2
-
-      a = []
-      b = []
-
-      hand = self.cards.select do |card|
-        if dupes.first == card.value
-          a << card
-        elsif dupes.last == card.value
-          b << card
-        end
+      return nil unless self.cards.length >= 5 and dupes.length == 2
+      
+      # Ensure only duplicates are in 
+      self.cards.each do |card|
+        return nil unless dupes.include? card.value
       end
 
-      return nil unless a.length + b.length == 5
       self.cards.sort.reverse
     end
 
@@ -136,7 +129,7 @@ module Hands
 
     def pairs(min)
       dupes = self.duplicates
-      return nil if dupes.length < min
+      return nil unless dupes.length >= min
 
       hand = self.cards.select do |card|
         dupes.include?(card.value)
