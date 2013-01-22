@@ -162,4 +162,17 @@ class HandDetectionTest < Hands::TestCase
     hand << Hands::Card[6, :hearts]
     assert_equal :straight_flush, hand.best_hand[:type]
   end
+
+
+  #### Royal Flush
+
+  def test_royal_flush
+    hand = Hands::Hand.new
+    hand << Hands::Card[10, :hearts]
+    hand << Hands::Card['j', :hearts]
+    hand << Hands::Card['q', :hearts]
+    hand << Hands::Card['k', :hearts]
+    hand << Hands::Card['a', :hearts]
+    assert_equal :royal_flush, hand.best_hand[:type]
+  end
 end

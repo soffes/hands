@@ -103,6 +103,18 @@ module Hands
       self.straight
     end
 
+    # @return [Array, Nil] Array of {Card} objects with the royal flush in decending order or `nil` if there isn't a straight flush in the {Hand}
+    def royal_flush
+      # Require a straight flush first
+      sf = self.straight_flush
+      return nil unless sf
+
+      # Make sure the highest card is an ace
+      return nil unless sf.first.value == 'a'
+
+      sf
+    end
+
     # Hand's index
     #
     # Mainly used for internal reasons when comparing {Hand}.
