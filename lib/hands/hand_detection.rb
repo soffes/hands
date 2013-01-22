@@ -58,7 +58,7 @@ module Hands
         return nil unless cs.first.value_index - cs.last.value_index == 4
 
         # Check succession
-        4.times do |i|        
+        4.times do |i|
           return nil unless cs[i].value_index == cs[i + 1].value_index + 1
         end
       end
@@ -67,8 +67,8 @@ module Hands
 
     # @return [Array, Nil] Array of {Card} objects with the flush in decending order or `nil` if there isn't a flush in the {Hand}
     def flush
-      # If all of the {Card}s are the same suite, we have a flush
-      return nil unless self.suites.length == 1
+      # If all of the {Card}s are the same suit, we have a flush
+      return nil unless self.suits.length == 1
       self.cards.sort.reverse
     end
 

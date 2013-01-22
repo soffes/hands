@@ -53,8 +53,8 @@ flush << Hands::Card[4, :hearts]
 flush > pair # true
 
 # Card comparison
-card1 = Hands::Card.new(:value => 2, :suite => :hearts)
-card2 = Hands::Card.new(:value => 3, :suite => :clubs)
+card1 = Hands::Card.new(:value => 2, :suit => :hearts)
+card2 = Hands::Card.new(:value => 3, :suit => :clubs)
 card2 > card1 # true
 ```
 

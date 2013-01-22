@@ -6,9 +6,9 @@ module Hands
   class Card
     include Comparable
 
-    # @return [Symbol] Card's suite
+    # @return [Symbol] Card's suit
     # @see SUITES
-    attr_accessor :suite
+    attr_accessor :suit
 
     # Card's value
     #
@@ -18,17 +18,17 @@ module Hands
     attr_accessor :value
 
     # (see #initialize)
-    def self.[](value = nil, suite = nil)
-      self.new(value, suite)
+    def self.[](value = nil, suit = nil)
+      self.new(value, suit)
     end
 
     # Initialize a Card
     #
-    # @param [String, Integer, Hash] value If an `Integer` or `String` are provided, this will be set to the value. If a `Hash` is provided, its value for `:value` will be set to the `Card`'s value and its `:suite` value will be set to the `Card`'s suite.
-    # @param [Symbol] suite Sets the `Card`'s suite.
+    # @param [String, Integer, Hash] value If an `Integer` or `String` are provided, this will be set to the value. If a `Hash` is provided, its value for `:value` will be set to the `Card`'s value and its `:suit` value will be set to the `Card`'s suit.
+    # @param [Symbol] suit Sets the `Card`'s suit.
     # @return [Card] A new instance of Card
     # @see Card.[]
-    def initialize(value = nil, suite = nil)
+    def initialize(value = nil, suit = nil)
       # Value provided
       if value.is_a?(Integer) or value.is_a?(String)
         self.value = value
@@ -36,11 +36,11 @@ module Hands
       # Hash provided
       elsif value.is_a?(Hash)
         self.value = value[:value] if value[:value]
-        self.suite = value[:suite] if value[:suite]
+        self.suit = value[:suit] if value[:suit]
       end
 
-      # Set suite
-      self.suite = suite if suite
+      # Set suit
+      self.suit = suit if suit
     end
 
     def value=(val)
@@ -67,11 +67,11 @@ module Hands
       @value = nil
     end
 
-    def suite=(suite)
-      if (suite.is_a?(String) or suite.is_a?(Symbol)) and SUITES.include?(suite.to_sym)
-        @suite = suite.to_sym
+    def suit=(suit)
+      if (suit.is_a?(String) or suit.is_a?(Symbol)) and SUITES.include?(suit.to_sym)
+        @suit = suit.to_sym
       else
-        @suite = nil
+        @suit = nil
       end
     end
 
@@ -86,12 +86,12 @@ module Hands
       end
     end
 
-    # @return [Boolean] Does the receiver contain a valid value and suite combination
+    # @return [Boolean] Does the receiver contain a valid value and suit combination
     def is_valid?
-      SUITES.include?(@suite) and VALUES.include?(@value.to_s.downcase)
+      SUITES.include?(@suit) and VALUES.include?(@value.to_s.downcase)
     end
 
-    # @return [Boolean] Does the receiver contain an invalid value and suite combination
+    # @return [Boolean] Does the receiver contain an invalid value and suit combination
     def is_invalid?
       !self.is_valid?
     end
@@ -101,7 +101,7 @@ module Hands
     # @return [String] string representation of the card
     def description
       if self.is_valid?
-        "#{VALUE_DESCRIPTIONS[self.value_index].capitalize} of #{self.suite.to_s.capitalize}"
+        "#{VALUE_DESCRIPTIONS[self.value_index].capitalize} of #{self.suit.to_s.capitalize}"
       else
         'invalid'
       end
@@ -109,16 +109,16 @@ module Hands
 
     # Compares the card with another card
     #
-    # By default `check_suite` is `false`. If set to `true`, it will order cards that have the same value by their suite.
+    # By default `check_suit` is `false`. If set to `true`, it will order cards that have the same value by their suit.
     #
     # @param [Card] other_card the card to compare the receiver to
-    # @param [Boolean] check_suite a boolean indicating if the suite should be accounted for
+    # @param [Boolean] check_suit a boolean indicating if the suit should be accounted for
     # @return [Integer] `-1` if `other_card` is less than the receiver, `0` for equal to, and `1` for greater than
     # @see SUITES
-    def <=>(other_card, check_suite = false)
+    def <=>(other_card, check_suit = false)
       # TODO: Handle invalid cards
       result = self.value_index <=> other_card.value_index
-      return self.suite_index <=> other_card.suite_index if result == 0 and check_suite
+      return self.suit_index <=> other_card.suit_index if result == 0 and check_suit
       result
     end
 
@@ -126,10 +126,10 @@ module Hands
     #
     # Mainly used for internal reasons when comparing cards.
     #
-    # @return [Integer] index of the card's suite
+    # @return [Integer] index of the card's suit
     # @see SUITES
-    def suite_index
-      SUITES.index(self.suite.downcase)
+    def suit_index
+      SUITES.index(self.suit.downcase)
     end
 
     # Values's index

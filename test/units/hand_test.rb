@@ -45,9 +45,9 @@ class HandTest < Hands::TestCase
     hand = Hands::Hand.new
     hand << Hands::Card[2, :hearts]
     hand << Hands::Card[2, :clubs]
-    assert_equal [:hearts, :clubs], hand.suites
+    assert_equal [:hearts, :clubs], hand.suits
 
     hand << Hands::Card[3, :clubs]
-    assert_equal [:hearts, :clubs], hand.suites
+    assert_equal [:hearts, :clubs], hand.suits
   end
 end

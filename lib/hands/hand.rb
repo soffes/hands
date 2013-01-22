@@ -37,9 +37,9 @@ module Hands
       @cards.flatten! # TODO: Figure out why this is necessary
     end
 
-    # @return [Array] All of the suites contained in the {Hand}
-    def suites
-      @cards.collect(&:suite).uniq
+    # @return [Array] All of the suits contained in the {Hand}
+    def suits
+      @cards.collect(&:suit).uniq
     end
 
     # Empties the hand

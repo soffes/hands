@@ -7,8 +7,8 @@ module Hands
     def initialize
       @cards = []
       VALUES.each do |value|
-        SUITES.each do |suite|
-          @cards << Card[value, suite]
+        SUITES.each do |suit|
+          @cards << Card[value, suit]
         end
       end
     end
