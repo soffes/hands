@@ -35,33 +35,22 @@ module Hands
 
     # @return [Array, Nil] Array of {Card} objects with the straight in decending order or `nil` if there isn't a straight in the {Hand}
     def straight
+      # Require at least 5 cards
       return nil unless self.cards.length >= 5
+      
+      # Sort
       cs = self.cards.sort.reverse
 
       # Ace's low
-      if cs.first.value == 'a' and cs[1].value == '5'
-        # Move ace to end
-        ace = cs.first
-        cs = cs[1..4]
-        cs << ace
+      return cs if cs.first.value == 'a' and cs[1].value == '5'
 
-        # Check succession
-        csr = cs.reverse
-        4.times do |i|
-          next if i == 0
-          return nil unless csr[i].value_index == i - 1
-        end
+      # Check succession
+      return nil unless succession?
 
-      # Normal
-      else
-        # Check range
-        return nil unless cs.first.value_index - cs.last.value_index == 4
+      # Avoid wrap-around
+      values = self.cards.collect(&:value)
+      return nil if values.include?('k') and values.include?(2)
 
-        # Check succession
-        4.times do |i|
-          return nil unless cs[i].value_index == cs[i + 1].value_index + 1
-        end
-      end
       cs
     end
 
@@ -77,7 +66,7 @@ module Hands
       dupes = self.duplicates
       return nil unless self.cards.length >= 5 and dupes.length == 2
       
-      # Ensure only duplicates are in 
+      # Ensure all {Card}s are one of the duplicates
       self.cards.each do |card|
         return nil unless dupes.include? card.value
       end
@@ -153,6 +142,14 @@ module Hands
       hand = hand.sort.reverse
       hand << (self.cards - hand).sort.reverse
       hand.flatten
+    end
+    
+    def succession?
+      cs = self.cards.sort.reverse
+      4.times do |i|
+        return false unless cs[i].value_index == cs[i + 1].value_index + 1
+      end
+      true
     end
   end
 end

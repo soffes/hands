@@ -9,8 +9,10 @@ gem 'rake'
 gem 'yard'
 gem 'redcarpet'
 
+# Testing
 group :test do
-  gem 'minitest'
-  gem 'minitest-wscolor'
-  gem 'simplecov'
+  gem 'minitest', require: false
+  gem 'minitest-wscolor', require: false
+  gem 'simplecov', require: false
+  gem 'm', require: false
 end
