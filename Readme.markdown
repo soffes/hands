@@ -4,7 +4,7 @@ Simple library for calculating poker hands.
 
 Currently this gem is very limited. I plan on adding outs, odds, and other actually useful stuff. I started writing this on a plane as a personal challenge. It's current state is crude, although tested and works.
 
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/soffes/hands) [![Dependency Status](https://gemnasium.com/soffes/hands.png)](https://gemnasium.com/soffes/hands)
+[![Build Status](https://travis-ci.org/soffes/hands.png?branch=master)](undefined) [![Dependency Status](https://gemnasium.com/soffes/hands.png)](https://gemnasium.com/soffes/hands) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/soffes/hands)
 
 ## Installation
 
