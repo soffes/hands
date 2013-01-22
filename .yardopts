@@ -1,7 +1,5 @@
 --markup markdown
---plugin rspec
 'lib/**/*.rb'
-'spec/**/*.rb'
 -
 Readme.markdown
 Todo.markdown

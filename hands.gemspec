@@ -3,10 +3,10 @@ require File.expand_path('../lib/hands/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ['Sam Soffes']
-  gem.email         = ['sam@samsoff.es']
+  gem.email         = ['sam@soff.es']
   gem.description   = 'Simple library for various poker hands calculations.'
   gem.summary       = 'Simple library for various poker hands calculations.'
-  gem.homepage      = 'http://github.com/samsoffes/hands'
+  gem.homepage      = 'http://github.com/soffes/hands'
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")

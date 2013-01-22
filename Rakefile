@@ -1,24 +1,12 @@
-#!/usr/bin/env rake
 require 'bundler/gem_tasks'
-require 'rspec/core/rake_task'
+require 'rake/testtask'
 
-desc 'Run specs'
-RSpec::Core::RakeTask.new do |t|
-  t.rspec_opts = ['--color']
+Rake::TestTask.new(:test) do |t|
+  t.libs << 'test'
+  t.pattern = 'test/**/*_test.rb'
 end
-
-task :default => :spec
+task default: :test
 
 task :coverage do
   `open coverage/index.html`
-end
-
-task :doc do
-  puts `bundle exec yard`
-end
-
-namespace :doc do
-  task :server do
-    `bundle exec yard server --reload`
-  end
 end
