@@ -4,6 +4,8 @@ Simple library for calculating poker hands.
 
 Currently this gem is very limited. I plan on adding outs, odds, and other actually useful stuff. I started writing this on a plane as a personal challenge. It's current state is crude, although tested and works.
 
+[![Dependency Status](https://gemnasium.com/soffes/hands.png)](https://gemnasium.com/soffes/hands)
+
 ## Installation
 
 Add this line to your application's Gemfile:
