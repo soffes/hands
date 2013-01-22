@@ -24,7 +24,7 @@ Or install it yourself as:
 
 ## Usage
 
-Read the [documentation](http://rubydoc.info/github/samsoffes/hands/master/frames).
+Read the [documentation](http://rubydoc.info/github/soffes/hands/frames/file/Readme.markdown).
 
 ``` ruby
 # Best hand detection
