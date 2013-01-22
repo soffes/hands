@@ -7,7 +7,7 @@ module Hands
     include Comparable
 
     # @return [Symbol] Card's suit
-    # @see SUITES
+    # @see SUITS
     attr_accessor :suit
 
     # Card's value
@@ -68,7 +68,7 @@ module Hands
     end
 
     def suit=(suit)
-      if (suit.is_a?(String) or suit.is_a?(Symbol)) and SUITES.include?(suit.to_sym)
+      if (suit.is_a?(String) or suit.is_a?(Symbol)) and SUITS.include?(suit.to_sym)
         @suit = suit.to_sym
       else
         @suit = nil
@@ -88,7 +88,7 @@ module Hands
 
     # @return [Boolean] Does the receiver contain a valid value and suit combination
     def is_valid?
-      SUITES.include?(@suit) and VALUES.include?(@value.to_s.downcase)
+      SUITS.include?(@suit) and VALUES.include?(@value.to_s.downcase)
     end
 
     # @return [Boolean] Does the receiver contain an invalid value and suit combination
@@ -114,7 +114,7 @@ module Hands
     # @param [Card] other_card the card to compare the receiver to
     # @param [Boolean] check_suit a boolean indicating if the suit should be accounted for
     # @return [Integer] `-1` if `other_card` is less than the receiver, `0` for equal to, and `1` for greater than
-    # @see SUITES
+    # @see SUITS
     def <=>(other_card, check_suit = false)
       # TODO: Handle invalid cards
       result = self.value_index <=> other_card.value_index
@@ -122,14 +122,14 @@ module Hands
       result
     end
 
-    # Suite's index
+    # Suit's index
     #
     # Mainly used for internal reasons when comparing cards.
     #
     # @return [Integer] index of the card's suit
-    # @see SUITES
+    # @see SUITS
     def suit_index
-      SUITES.index(self.suit.downcase)
+      SUITS.index(self.suit.downcase)
     end
 
     # Values's index
