@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'test_helper'
 
 class CardTest < Hands::TestCase
@@ -63,10 +64,14 @@ class CardTest < Hands::TestCase
 
   def test_that_it_includes_the_description_in_inspect
     card = Hands::Card.new(value: 2, suit: :hearts)
-    assert_includes card.inspect, 'Two of Hearts'
+    assert_equal '2♥', card.description
+    assert_includes card.inspect, '2♥'
+    assert_equal 'Two of Hearts', card.long_description
 
     card = Hands::Card.new
     assert_equal 'invalid', card.description
+    assert_equal 'invalid', card.description
     refute_includes card.inspect, 'invalid'
+    assert_equal 'invalid', card.description
   end
 end

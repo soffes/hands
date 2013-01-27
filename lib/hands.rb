@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'hands/version'
 require 'hands/card'
 require 'hands/hand'
@@ -13,8 +15,9 @@ module Hands
   # All card value descriptions
   VALUE_DESCRIPTIONS = %w{two three four five six seven eight nine ten jack queen king ace}
 
-  # Reverse alphabetically ordered suits
+  # Alphabetically ordered suits (higher index in the array is higher value)
   SUITS = [:clubs, :diamonds, :hearts, :spades]
+  SUIT_CHARACTERS = %w{♣ ♦ ♥ ♠}
 
   # Ranks of poker hands
   HAND_ORDER = [

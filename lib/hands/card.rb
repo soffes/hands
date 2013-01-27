@@ -96,15 +96,24 @@ module Hands
       !self.is_valid?
     end
 
+    # Get a short string representation of the card
+    #
+    # Example: "♥2"
+    #
+    # @return [String] short string representation of the card
+    def description
+      return 'invalid' unless self.is_valid?
+      self.value.capitalize + SUIT_CHARACTERS[self.suit_index]
+    end
+
     # Get a string representation of the card
     #
+    # Example: "Two of Hearts"
+    #
     # @return [String] string representation of the card
-    def description
-      if self.is_valid?
-        "#{VALUE_DESCRIPTIONS[self.value_index].capitalize} of #{self.suit.to_s.capitalize}"
-      else
-        'invalid'
-      end
+    def long_description
+      return 'invalid' unless self.is_valid?
+      "#{VALUE_DESCRIPTIONS[self.value_index].capitalize} of #{self.suit.to_s.capitalize}"
     end
 
     # Compares the card with another card
@@ -129,6 +138,7 @@ module Hands
     # @return [Integer] index of the card's suit
     # @see SUITS
     def suit_index
+      return nil unless self.suit
       SUITS.index(self.suit.downcase)
     end
 
@@ -139,6 +149,7 @@ module Hands
     # @return [Integer] index of the card's value
     # @see VALUES
     def value_index
+      return nil unless self.value
       VALUES.index(self.value.downcase)
     end
   end
