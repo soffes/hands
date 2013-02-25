@@ -24,4 +24,10 @@ module Hands
     :high_card, :pair, :two_pair, :three_of_a_kind, :straight, :flush, :full_house,
     :four_of_a_kind, :straight_flush, :royal_flush
   ]
+
+  # Raised when an invalid suit is used
+  class InvalidSuit < StandardError; end
+
+  # Raised when an invalid value is used
+  class InvalidValue < StandardError; end
 end

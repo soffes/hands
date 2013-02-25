@@ -7,6 +7,7 @@ Gem::Specification.new do |gem|
   gem.description   = 'Simple library for various poker hands calculations.'
   gem.summary       = 'Simple library for various poker hands calculations.'
   gem.homepage      = 'http://github.com/soffes/hands'
+  gem.license       = 'MIT'
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
@@ -14,4 +15,6 @@ Gem::Specification.new do |gem|
   gem.name          = 'hands'
   gem.require_paths = ['lib']
   gem.version       = Hands::VERSION
+
+  gem.required_ruby_version = '>= 1.9.2'
 end

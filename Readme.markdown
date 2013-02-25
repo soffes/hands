@@ -4,8 +4,6 @@ Simple library for calculating poker hands.
 
 Currently this gem is very limited. I plan on adding outs, odds, and other actually useful stuff. I started writing this on a plane as a personal challenge. It's current state is crude, although tested and works.
 
-[![Build Status](https://travis-ci.org/soffes/hands.png?branch=master)](undefined) [![Dependency Status](https://gemnasium.com/soffes/hands.png)](https://gemnasium.com/soffes/hands) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/soffes/hands)
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -58,20 +56,12 @@ card2 = Hands::Card.new(:value => 3, :suit => :clubs)
 card2 > card1 # true
 ```
 
-## Running Tests
+## Supported Ruby Versions
 
-Running and reading the tests is (for now) the best way to see the functionality of this gem.
+Hands is tested under 1.9.3, 2.0.0, and JRuby (1.9 mode).
 
-```
-$ bundle exec rake
-```
+[![Build Status](https://travis-ci.org/soffes/hands.png?branch=master)](https://travis-ci.org/soffes/hands)
 
 ## Contributing
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Write passing specs
-4. Write documentation
-5. Commit your changes (`git commit -am 'Added some feature'`)
-6. Push to the branch (`git push origin my-new-feature`)
-7. Create new Pull Request
+See the [contributing guide](Contributing.markdown).

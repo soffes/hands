@@ -3,16 +3,17 @@ source 'https://rubygems.org'
 gemspec
 
 # Utility
-gem 'rake'
+gem 'rake', :group => [:development, :test]
 
 # Documentation
-gem 'yard'
-gem 'redcarpet'
+group :development do
+  gem 'yard'
+  gem 'redcarpet', :platform => :ruby
+end
 
 # Testing
 group :test do
-  gem 'minitest', require: false
-  gem 'minitest-wscolor', require: false
-  gem 'simplecov', require: false
-  gem 'm', require: false
+  gem 'minitest'
+  gem 'minitest-wscolor' if RUBY_VERSION >= '1.9.3'
+  gem 'simplecov', :require => false
 end

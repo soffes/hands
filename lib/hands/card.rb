@@ -65,14 +65,20 @@ module Hands
 
       # Invalid
       @value = nil
+      raise InvalidValue, "'#{val}' is an invalid suit."
     end
 
     def suit=(suit)
-      if (suit.is_a?(String) or suit.is_a?(Symbol)) and SUITS.include?(suit.to_sym)
-        @suit = suit.to_sym
-      else
+      # Convert to symbol
+      suit = suit.to_sym if suit.is_a?(String)
+
+      # Make sure it's valid
+      unless suit.is_a?(Symbol) and SUITS.include?(suit)
         @suit = nil
+        raise InvalidSuit, "'#{suit}' is an invalid suit."
       end
+
+      @suit = suit
     end
 
     # Standard inspect
