@@ -58,7 +58,7 @@ card2 > card1 # true
 
 ## Supported Ruby Versions
 
-Hands is tested under 1.9.3, 2.0.0, and JRuby (1.9 mode).
+Hands is tested under 1.9.2, 1.9.3, 2.0.0, JRuby 1.7.2 (1.9 mode), and Rubinius 2.0.0 (1.9 mode).
 
 [![Build Status](https://travis-ci.org/soffes/hands.png?branch=master)](https://travis-ci.org/soffes/hands)
 
