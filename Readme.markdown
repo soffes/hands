@@ -1,5 +1,7 @@
 # Hands
 
+[![Build Status](https://travis-ci.org/soffes/hands.png?branch=master)](https://travis-ci.org/soffes/hands) [![Coverage Status](https://coveralls.io/repos/soffes/hands/badge.png?branch=master)](https://coveralls.io/r/soffes/hands) [![Code Climate](https://codeclimate.com/github/soffes/hands.png)](https://codeclimate.com/github/soffes/hands) [![Dependency Status](https://gemnasium.com/soffes/hands.png)](https://gemnasium.com/soffes/hands) [![Gem Version](https://badge.fury.io/rb/hands.png)](http://badge.fury.io/rb/hands)
+
 Simple library for calculating poker hands.
 
 Currently this gem is very limited. I plan on adding outs, odds, and other actually useful stuff. I started writing this on a plane as a personal challenge. It's current state is crude, although tested and works.
@@ -60,7 +62,6 @@ card2 > card1 # true
 
 Hands is tested under 1.9.2, 1.9.3, 2.0.0, JRuby 1.7.2 (1.9 mode), and Rubinius 2.0.0 (1.9 mode).
 
-[![Build Status](https://travis-ci.org/soffes/hands.png?branch=master)](https://travis-ci.org/soffes/hands)
 
 ## Contributing
 
